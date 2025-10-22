@@ -43,3 +43,10 @@ jobs:
             --parameters @infra/parameters.json \
             --no-prompt \
             --only-show-errors
+
+      - name: Display Outputs
+        run: |
+          az deployment group show \
+            --resource-group sandbox1 \
+            --name "deploy-${{ github.run_id }}" \
+            --query properties.outputs

@@ -6,13 +6,10 @@
       "value": "my-appservice-plan"
     },
     "webAppName": {
-      "value": "my-webapp-xcv-465"
+      "value": "my-webapp-unique-12345"
     },
     "storageAccountName": {
-      "value": "myuniestoreac4655"
-    },
-    "location": {
-      "value": "southeastasia"
+      "value": "myuniestoreacct4655"
     }
   }
 }

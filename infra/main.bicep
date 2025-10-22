@@ -4,14 +4,13 @@ param appServicePlanName string
 param webAppName string
 param storageAccountName string
 
-// App Service Plan
+// App Service Plan (Free Tier for Azure Free Trial)
 resource appServicePlan 'Microsoft.Web/serverfarms@2022-03-01' = {
   name: appServicePlanName
   location: location
   sku: {
     name: 'F1'
     tier: 'Free'
-    capacity: 1
   }
 }
 
@@ -21,6 +20,7 @@ resource webApp 'Microsoft.Web/sites@2022-03-01' = {
   location: location
   properties: {
     serverFarmId: appServicePlan.id
+    httpsOnly: true
   }
 }
 
@@ -34,5 +34,12 @@ resource storage 'Microsoft.Storage/storageAccounts@2022-09-01' = {
   kind: 'StorageV2'
   properties: {
     accessTier: 'Hot'
+    supportsHttpsTrafficOnly: true
+    minimumTlsVersion: 'TLS1_2'
   }
 }
+
+// Outputs for verification
+output webAppUrl string = webApp.properties.defaultHostName
+output storageAccountId string = storage.id
+output appServicePlanId string = appServicePlan.id
