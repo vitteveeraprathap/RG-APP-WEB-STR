@@ -19,16 +19,27 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Ensure Bicep CLI is installed
+      - name: Install/Upgrade Bicep CLI
         run: |
           az bicep install
           az bicep upgrade
           az bicep version
 
-      - name: Deploy Bicep Template to existing RG
+      - name: Validate Bicep Template
+        run: |
+          az deployment group validate \
+            --resource-group sandbox1 \
+            --template-file infra/main.bicep \
+            --parameters @infra/parameters.json \
+            --no-prompt \
+            --only-show-errors
+
+      - name: Deploy Bicep Template
         run: |
           az deployment group create \
             --name "deploy-${{ github.run_id }}" \
-            --resource-group sandbox \
+            --resource-group sandbox1 \
             --template-file infra/main.bicep \
-            --parameters @infra/parameters.json
+            --parameters @infra/parameters.json \
+            --no-prompt \
+            --only-show-errors

@@ -1,5 +1,5 @@
 // Parameters
-param location string = 'centralus'
+param location string = 'southeastasia'
 param appServicePlanName string
 param webAppName string
 param storageAccountName string
