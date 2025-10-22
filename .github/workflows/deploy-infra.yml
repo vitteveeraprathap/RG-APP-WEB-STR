@@ -1,0 +1,34 @@
+name: Deploy Azure Infra
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'infra/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Ensure Bicep CLI is installed
+        run: |
+          az bicep install
+          az bicep upgrade
+          az bicep version
+
+      - name: Deploy Bicep Template to existing RG
+        run: |
+          az deployment group create \
+            --name "deploy-${{ github.run_id }}" \
+            --resource-group sandbox \
+            --template-file infra/main.bicep \
+            --parameters @infra/parameters.json
