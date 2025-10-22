@@ -1,5 +1,5 @@
 // Parameters
-param location string = 'westus2'
+param location string = 'centralus'
 param appServicePlanName string
 param webAppName string
 param storageAccountName string
