@@ -10,6 +10,15 @@
     },
     "storageAccountName": {
       "value": "myuniestoreacct4655"
+    },
+    "keyVaultName": {
+      "value": "mykeyvault4655"
+    },
+    "acrName": {
+      "value": "myacr4655"
+    },
+    "logAnalyticsName": {
+      "value": "myloganalytics4655"
     }
   }
 }
